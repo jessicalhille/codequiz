@@ -132,5 +132,33 @@ function quizEnd() {
     finalScoreEl.textContent = countdown;
 }
 
+function saveHighscore() {
+    var userInitials = initialsEl.nodeValue;
+    if (initials === "") {
+        alert("Initials cannot be blank!");
+        return;
+    } else if (initials.length > 0) {
+        alert("Initials cannot be more than 3 characters");
+        return;
+    } else {
+        var highscores;
+        if (JSON.parse(localStorage.getItem("highscores")) !=null) {
+            highscores = JSON.parse(window.localStorage.getItem("highscores"));
+        } else {
+            highscores = [];
+        };
+        var newScore = {
+            intials: initials,
+            score: countdown
+        };
+        highscores.push(newScore);
+        localStorage.setItem("highscores", JSON.stringify(highscores));
+        location.href = "highscores.html";
+    };
+    
+}
+
+submitBtn.onclick = saveHighscore;
+
 // user clicks button to start the quiz
 startBtn.onclick = startQuiz;
