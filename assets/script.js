@@ -132,22 +132,5 @@ function quizEnd() {
     finalScoreEl.textContent = countdown;
 }
 
-function saveFinalScore() {
-    // get user input
-    var initials = initialsEl.value.toUpperCase();
-
-    // notify user if input was empty
-    if (initials === "") {
-        alert("Initials cannot be blank!");
-        return;
-    } else if (initials.length > 3) {
-        alert("Initials cannot be more than 3 letters.");
-        return;
-    };
-}
-
-// user clicks button to submit score
-submitBtn.onclick = saveFinalScore;
-
 // user clicks button to start the quiz
 startBtn.onclick = startQuiz;
