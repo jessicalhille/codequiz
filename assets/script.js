@@ -1,13 +1,17 @@
 var countdown = 75;
-var questionNumber = 0;
+var currentQuestionIndex = 0;
 var timerId;
 
 var timerEl = document.getElementById("countdown");
-var questionsEl = document.getElementById(".question");
-var optionsEl = document.getElementById("options");
+var questionsEl = document.getElementById("questions");
+var optionsEl = document.getElementById("question-options");
 var startBtn = document.getElementById("start");
+var submitBtn = document.getElementById("submit");
 
 function startQuiz() {
+    var startScreen = document.getElementById("start-screen");
+    startScreen.setAttribute("class", "hidden");
+    
     // start timer
     timerId = setInterval(function(){
         clockCountdown();
@@ -31,62 +35,72 @@ function clockCountdown() {
 var questionsList = [
     {
         question: "Commonly used data types do NOT include:",
-        options: {
-            a: "strings",
-            b: "booleans",
-            c: "alerts", 
-            d: "numbers"
-        }, 
-        correctAnswer: "c"
+        options: ["strings", "booleans", "alerts", "numbers"],
+        answer: "alerts"
     },
     {
         question: "The condition in an if/else statement is enclosed with:",
-        options: {
-            a: "quotes",
-            b: "curly brackets",
-            c: "parenthesis",
-            d: "square brackets"
-        },
-        correctAnswer: "c"
+        options: ["quotes", "curly brackets", "parenthesis", "square brackets"],
+        answer: "parenthesis"
     },
     {
         question: "Arrays in JavaScript can be used to store:",
-        options: {
-            a: "numbers and strings", 
-            b: "other arrays", 
-            c: "booleans", 
-            d: "all of the above"
-        },
-        correctAnswer: "d"
+        options: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+        answer: "all of the above"
     },
     {
         question: "CSS is an acronym of:",
-        options: {
-            a: "Cascading Style Sheets", 
-            b: "Codename Style Sheets", 
-            c: "Cascaded Starter Sheets", 
-            d: "Cascading Style Staircase"
-        },
-        correctAnswer: "a"
+        options: ["Cascading Style Sheets", "Codename Style Sheets", "Cascaded Starter Sheets", "Cascading Style Staircase"],
+        answer: "Cascading Style Sheets"
     },
     {
         question: "A very useful tool used during development and debugging for printing content to the debugger is:",
-        options: {
-            a: "JavaScript",
-            b: "console.log", 
-            c: "terminal/bash", 
-            d: "for loops"
-        },
-        correctAnswer: "b"
+        options: ["JavaScript", "console.log", "terminal/bash", "for loops"],
+        answer: "console.log"
     },
 ]
 
 function getQuestion() {
+    var currentQuestion = questionsList[currentQuestionIndex];
+    questionsEl.children[0].textContent = currentQuestion.question;
 
-    for (var i = 0; i < questionsList.length; i++) {
-        console.log(questionsList);
+    while (optionsEl.hasChildNodes()) {
+        optionsEl.removeChild(optionsEl.lastChild);
     };
-    document.getElementById("question-text").innerHTML = questionsList;
+
+    for (var i = 0; i < currentQuestion.options.length; i++) {
+        var optionsButton = document.createElement("button");
+        optionsButton.textContent = currentQuestion.options[i];
+        optionsEl.appendChild(optionsButton);
+    };
+
+    optionsEl.children[0].addEventListener("click", function(event) {
+        buttonClick(optionsEl.children[0]);
+    });
+    optionsEl.children[1].addEventListener("click", function(event) {
+        buttonClick(optionsEl.children[1]);
+    });
+    optionsEl.children[2].addEventListener("click", function(event) {
+        buttonClick(optionsEl.children[2]);
+    });
+    optionsEl.children[3].addEventListener("click", function(event) {
+        buttonClick(optionsEl.children[3]);
+    });
+}
+
+function buttonClick(answerChoice) {
+    if (answerChoice.textContent != questionsList[currentQuestionIndex].answer) {
+        // penalize
+        countdown -= 10;
+    };
+
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex === questionsList.length) {
+        quizEnd();
+    } else {
+        getQuestion();
+    };
 }
 
 function quizEnd() {
@@ -94,8 +108,13 @@ function quizEnd() {
     clearInterval(timerId);
     timerEl.textContent = countdown;
 
+    // hide question
+    var questionsDone = document.getElementById("questions");
+    questionsDone.setAttribute("class", "hidden");
+
     // show the ending screen
-    var endScreenEl = document.getElementById(".end-screen");
+    var endScreenEl = document.getElementById("end-screen");
+    endScreenEl.removeAttribute("class", "hidden");
     
     // show the score
     var finalScoreEl = document.getElementById("final-score");
