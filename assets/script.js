@@ -8,6 +8,7 @@ var optionsEl = document.getElementById("question-options");
 var startBtn = document.getElementById("start");
 var submitBtn = document.getElementById("submit");
 var feedbackEl = document.getElementById("feedback");
+var initialsEl = document.getElementById("initials");
 
 function startQuiz() {
     var startScreen = document.getElementById("start-screen");
@@ -130,6 +131,23 @@ function quizEnd() {
     var finalScoreEl = document.getElementById("final-score");
     finalScoreEl.textContent = countdown;
 }
+
+function saveFinalScore() {
+    // get user input
+    var initials = initialsEl.value.toUpperCase();
+
+    // notify user if input was empty
+    if (initials === "") {
+        alert("Initials cannot be blank!");
+        return;
+    } else if (initials.length > 3) {
+        alert("Initials cannot be more than 3 letters.");
+        return;
+    };
+}
+
+// user clicks button to submit score
+submitBtn.onclick = saveFinalScore;
 
 // user clicks button to start the quiz
 startBtn.onclick = startQuiz;
