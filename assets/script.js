@@ -7,6 +7,7 @@ var questionsEl = document.getElementById("questions");
 var optionsEl = document.getElementById("question-options");
 var startBtn = document.getElementById("start");
 var submitBtn = document.getElementById("submit");
+var feedbackEl = document.getElementById("feedback");
 
 function startQuiz() {
     var startScreen = document.getElementById("start-screen");
@@ -34,27 +35,27 @@ function clockCountdown() {
 // list of all questions and answers
 var questionsList = [
     {
-        question: "Commonly used data types do NOT include:",
+        question: "Commonly used data types do NOT include __________.",
         options: ["strings", "booleans", "alerts", "numbers"],
         answer: "alerts"
     },
     {
-        question: "The condition in an if/else statement is enclosed with:",
+        question: "The condition in an if/else statement is enclosed with __________.",
         options: ["quotes", "curly brackets", "parenthesis", "square brackets"],
         answer: "parenthesis"
     },
     {
-        question: "Arrays in JavaScript can be used to store:",
+        question: "Arrays in JavaScript can be used to store __________.",
         options: ["numbers and strings", "other arrays", "booleans", "all of the above"],
         answer: "all of the above"
     },
     {
-        question: "CSS is an acronym of:",
+        question: "CSS is an acronym of __________.",
         options: ["Cascading Style Sheets", "Codename Style Sheets", "Cascaded Starter Sheets", "Cascading Style Staircase"],
         answer: "Cascading Style Sheets"
     },
     {
-        question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+        question: "A very useful tool used during development and debugging for printing content to the debugger is __________.",
         options: ["JavaScript", "console.log", "terminal/bash", "for loops"],
         answer: "console.log"
     },
@@ -92,7 +93,13 @@ function buttonClick(answerChoice) {
     if (answerChoice.textContent != questionsList[currentQuestionIndex].answer) {
         // penalize
         countdown -= 10;
+        // give user feedback
+        feedbackEl.textContent = "Wrong!";
+    } else {
+        feedbackEl.textContent = "Correct!";
     };
+
+    feedbackEl.setAttribute("class", "feedback");
 
     currentQuestionIndex++;
 
@@ -111,6 +118,9 @@ function quizEnd() {
     // hide question
     var questionsDone = document.getElementById("questions");
     questionsDone.setAttribute("class", "hidden");
+
+    // hide feedback
+    feedbackEl.setAttribute("class", "hidden");
 
     // show the ending screen
     var endScreenEl = document.getElementById("end-screen");

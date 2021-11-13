@@ -9,20 +9,40 @@ body {
 .wrapper {
     margin: 100px auto 0 auto;
     max-width: 800px;
+    text-align: center;
+    font-size: larger;
 }
 
 #start-screen {
     text-align: center;
 }
 
+#start-screen, #end-screen p {
+    font-size: 20px;
+}
+
+#question-options {
+    display: flex;
+    justify-content: center;
+    display: grid;
+    margin-top: 20px;
+}
+
 button {
-    background-color:rebeccapurple;
+    background-color: #4B0082;
     color: white;
     border: 0;
     margin: 5px;
     border-radius: 5px;
-    padding: 8px 20px;
-    font-size: 100%;
+    padding: 8px 40px;
+    font-size: 20px;
+}
+
+#feedback {
+    font-style: italic;
+    font-size: 20px;
+    color: grey;
+    margin-top: 40px;
 }
 
 .hidden {
