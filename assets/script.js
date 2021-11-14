@@ -133,12 +133,9 @@ function quizEnd() {
 }
 
 function saveHighscore() {
-    var userInitials = initialsEl.nodeValue;
+    var initials = initialsEl.value;
     if (initials === "") {
         alert("Initials cannot be blank!");
-        return;
-    } else if (initials.length > 0) {
-        alert("Initials cannot be more than 3 characters");
         return;
     } else {
         var highscores;
@@ -148,14 +145,13 @@ function saveHighscore() {
             highscores = [];
         };
         var newScore = {
-            intials: initials,
+            initials: initials,
             score: countdown
         };
         highscores.push(newScore);
         localStorage.setItem("highscores", JSON.stringify(highscores));
         location.href = "highscores.html";
     };
-    
 }
 
 submitBtn.onclick = saveHighscore;

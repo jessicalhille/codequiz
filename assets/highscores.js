@@ -1,9 +1,9 @@
 function showHighscores() {
     // get scores from local storage
-    var highscores = JSON.parse(localStorage.getItem("highscores"));
-    for (var i = 0; i < highscores.length; i++) {
+    var highScores = JSON.parse(localStorage.getItem("highscores"));
+    for (var i = 0; i < highScores.length; i++) {
         var scoreLi = document.createElement("li");
-        scoreLi.textContent = highscores[i].initials + " - " + highscores[i].score;
+        scoreLi.textContent = highScores[i].initials + " - " + highScores[i].score;
         document.getElementById("highscores").appendChild(scoreLi);
     };
 }
