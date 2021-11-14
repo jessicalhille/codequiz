@@ -23,7 +23,9 @@ The challenge was to create a timed coding quiz with multiple choice questions f
 
 ***
 
+<img width="905" alt="Screen Shot 2021-11-14 at 3 31 32 PM" src="https://user-images.githubusercontent.com/91511805/141699390-3f8db32b-77d5-4313-941d-fcf3958d5310.png">
+
 ***
 
-# Link to Deployed Application
+## Link to Deployed Application
 ##### https://jessicalhille.github.io/codequiz/
