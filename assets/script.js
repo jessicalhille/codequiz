@@ -12,6 +12,7 @@ var initialsEl = document.getElementById("initials");
 
 function startQuiz() {
     var startScreen = document.getElementById("start-screen");
+    // hide start screen after quiz starts
     startScreen.setAttribute("class", "hidden");
     
     // start timer
@@ -63,19 +64,23 @@ var questionsList = [
 ]
 
 function getQuestion() {
+    // get current question from array
     var currentQuestion = questionsList[currentQuestionIndex];
     questionsEl.children[0].textContent = currentQuestion.question;
 
+    // erase old text
     while (optionsEl.hasChildNodes()) {
         optionsEl.removeChild(optionsEl.lastChild);
     };
 
     for (var i = 0; i < currentQuestion.options.length; i++) {
+        // create buttons for each answer choice
         var optionsButton = document.createElement("button");
         optionsButton.textContent = currentQuestion.options[i];
         optionsEl.appendChild(optionsButton);
     };
 
+    // create click listener for each answer choice
     optionsEl.children[0].addEventListener("click", function(event) {
         buttonClick(optionsEl.children[0]);
     });
@@ -91,6 +96,7 @@ function getQuestion() {
 }
 
 function buttonClick(answerChoice) {
+    // check to see if user clicked wrong answer
     if (answerChoice.textContent != questionsList[currentQuestionIndex].answer) {
         // penalize
         countdown -= 10;
@@ -102,8 +108,10 @@ function buttonClick(answerChoice) {
 
     feedbackEl.setAttribute("class", "feedback");
 
+    // move on to next question after feedback
     currentQuestionIndex++;
 
+    // check if there are more questions
     if (currentQuestionIndex === questionsList.length) {
         quizEnd();
     } else {
@@ -133,7 +141,9 @@ function quizEnd() {
 }
 
 function saveHighscore() {
+    // get user input
     var initials = initialsEl.value;
+    // make sure the user didn't leave it blank
     if (initials === "") {
         alert("Initials cannot be blank!");
         return;
@@ -144,16 +154,19 @@ function saveHighscore() {
         } else {
             highscores = [];
         };
+        // get the information for current user input
         var newScore = {
             initials: initials,
             score: countdown
         };
         highscores.push(newScore);
         localStorage.setItem("highscores", JSON.stringify(highscores));
+        // send user to the high scores page
         location.href = "highscores.html";
     };
 }
 
+// user clicks button to submit initials and score
 submitBtn.onclick = saveHighscore;
 
 // user clicks button to start the quiz
